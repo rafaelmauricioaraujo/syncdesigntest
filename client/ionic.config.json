@@ -1,0 +1,7 @@
+{
+  "name": "SDT-TechnicalTest",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}

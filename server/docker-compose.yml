@@ -1,0 +1,19 @@
+services:
+  mongodb:
+    image: mongo:7.0.8-jammy
+    hostname: mongodb
+    restart: unless-stopped
+    ports:
+      - "27018:27017"
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "rs.initiate().ok || rs.status().ok", "--quiet"]
+      interval: 5s
+      timeout: 30s
+      start_period: 0s
+      retries: 30
+    command: ["--replSet", "rs0", "--bind_ip_all"]
+    volumes:
+      - mongodb_data:/data/db
+
+volumes:
+  mongodb_data:
