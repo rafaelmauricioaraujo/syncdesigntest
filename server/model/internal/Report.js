@@ -57,6 +57,30 @@ const reportSchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
+  items: [
+    {
+      description: {
+        type: String,
+        trim: true,
+      },
+      costCode: {
+        type: String,
+        trim: true,
+      },
+      images: [
+        {
+          url: {
+            type: String, // URL of the image
+            required: true,
+          },
+          isDeleted: {
+            type: Boolean,
+            default: false,
+          },
+        },
+      ]
+    },
+  ],
 });
 
 const Report = mongoose.model("Report", reportSchema);

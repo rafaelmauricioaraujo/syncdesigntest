@@ -23,6 +23,33 @@ app.use(express.urlencoded({ extended: false }));
 // built-in middleware for json
 app.use(express.json());
 
+// app.use('/api', router);
+
+app.post("/api/report", async (req, res) => {
+  console.log(req.body);
+
+  const report = new Report({
+			title: req.body.title,
+			description: req.body.description,
+			images: req.body.images,
+			type: req.body.type,
+			parts: req.body.parts,
+			links: req.body.links,
+			user: new mongoose.Types.ObjectId(),
+			approvalNeeded: req.body.approvalNeeded,
+			items: req.body.items,
+      issueId: new mongoose.Types.ObjectId(),
+  });
+  try {
+    await report.save();
+    res.status(201).send(report);
+  } catch (err) {
+    console.log(err);
+    res.status(400).send(err);
+  }
+});
+
+
 // Middleware to catch URIError
 app.use((err, req, res, next) => {
   if (err instanceof URIError) {
