@@ -9,7 +9,8 @@ import {
 
 import type { Report } from '../components/dashboard/single-appointment/forms/form.interface';
 
-const createNewItem = (): { description: string; costCode: string; images: string[] } => ({
+const createNewItem = (): { description: string; costCode: string; images: string[], uuid: string } => ({
+  uuid: Math.random().toString(36).substring(7),
   description: '',
   costCode: '',
   images: [],
@@ -30,10 +31,13 @@ export function Page(): React.JSX.Element {
     approvalNeeded: null,
   });
   const [isDialogErrorVisible, setIsDialogErrorVisible] = React.useState<boolean>(false);
+  const [expandedItem, setExpandedItem] = React.useState<string | null>(null);
 
 
   const addNewItem = (): void => {
-    setReport((prev) => ({ ...prev, items: [...prev.items ?? [], createNewItem()] }));
+    const newItem = createNewItem();
+    setReport((prev) => ({ ...prev, items: [...prev.items ?? [], newItem] }));
+    setExpandedItem(newItem.uuid);
   }
 
   React.useEffect(() => {
@@ -60,6 +64,7 @@ export function Page(): React.JSX.Element {
         <h1 style={{ textAlign: 'center' }}>Create New Report</h1>
         <ReportForm
           addNewItem={addNewItem}
+          expandedItem={expandedItem}
           formType="Other"
           loading={loading}
           report={report}

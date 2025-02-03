@@ -2,6 +2,7 @@ export interface ReportItem {
 	description: string;
 	costCode: string;
 	images: string[];
+  uuid: string;
 	[key: string]: string | string[];
 
 }

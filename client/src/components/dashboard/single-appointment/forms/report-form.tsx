@@ -20,6 +20,7 @@ interface ReportFormProps {
   sendReportToDatabase: (e: React.FormEvent) => void;
   formType: string;
   addNewItem: () => void;
+  expandedItem: string | null;
 }
 // NOTE TO CANDIDATE
 // report and setReport are the main props that are passed to the form
@@ -31,6 +32,7 @@ export function ReportForm({
   sendReportToDatabase,
   formType,
   addNewItem,
+  expandedItem,
 }: ReportFormProps): JSX.Element {
 
   const { validateForm, handleFieldChange } = useFormHook({
@@ -51,7 +53,7 @@ export function ReportForm({
         <Stack spacing={3}>
 
           {/* Directly render the appropriate form component */}
-          <GeneralForm report={report} setReport={setReport} />
+          <GeneralForm report={report} setReport={setReport} expandedItem={expandedItem} />
 
           {/* NOTE TO CANDIDATE */}
           {/* We are keen on implementing forms in a modular way. So they can be combined and imported form any part of the application*/}
